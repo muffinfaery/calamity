@@ -2,6 +2,14 @@
   display: none;
 }
 
+.navigationContent {
+  margin-top: 10px;
+  width:100%;
+  max-width: 1200px;
+  display: inherit;
+  justify-content: flex-end;
+}
+
 .guildBannerContainer{
   display: flex;
   flex-wrap: wrap;
@@ -46,6 +54,10 @@
     justify-content: center;
   }
 
+  .navigationContent {
+    margin-right: 10px;
+  }
+
   .comingSoon {
     font-size: 24px;
     bottom: 30px;
@@ -56,22 +68,42 @@
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
+  .guildBannerContainer{
+    justify-content: center;
+  }
+
   .movingFire {
     bottom: -120px;
   }
 
+  .navigationContent {
+    margin-right: 40px;
+  }
+
+
   .comingSoon{
     font-size: 30px;
-    bottom: 60px;
-    margin-right: 50px;
+    bottom: 80px;
+    margin-right: auto;
+    margin-left: auto;
   }
 }
 
 @media only screen and (min-width: 992px) {
+  .navigationContent {
+    margin-right: 10px;
+  }
+
   .comingSoon{
     font-size: 40px;
     bottom: 60px;
     margin-right: 80px;
+  }
+}
+
+@media only screen and (orientation: landscape) {
+  .movingFire{
+    display:none;
   }
 }
 

@@ -1,12 +1,16 @@
 import { useState, useEffect, Fragment } from "react";
+import { withStyles, createTheme, ThemeProvider } from '@material-ui/core/styles';
+import grey from '@material-ui/core/colors/grey';
+
 import Head from "next/head";
 import Image from "next/image";
 import classNames from 'classnames';
 import styles from "../styles/Home.module.css";
 import transitions from '../styles/transitions.module.css'
 import calamityLogo from '../public/logo_variant_2.png';
-import elmo from '../public/elmo.svg';
 import {StorageDataAccessor} from '../Utilities/StorageDataAccessor'
+
+import Button from '@material-ui/core/Button';
 
 export default function Home() {
   let title = "< C A L A M I T Y >"
@@ -34,7 +38,21 @@ export default function Home() {
     introPhase()
   },[])
 
+  const theme = createTheme({
+    typography: {
+      fontFamily: 'Raleway, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif'
+    }
+  });
+
+  const ColorButton = withStyles((theme) => ({
+    root: {
+      color: theme.palette.getContrastText(grey[900]),
+      backgroundColor: grey[900]
+    },
+  }))(Button);
+
   return (
+    <ThemeProvider theme={theme}>
     <div className={styles.container}>
       <Head>
         <title>{title}</title>
@@ -45,12 +63,19 @@ export default function Home() {
         <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap" rel="stylesheet" />
       </Head>
 
+      <div className={styles.navigationContent}>
+        <ColorButton size="large" href={"https://discord.gg/xz5pqqAadY"} color="primary">
+          Discord
+        </ColorButton>
+      </div>
+
       <Introduction enable={showIntroduction} endEvent={() => {
         displayGuildBanner(true);
       }}/>
       <GuildBanner enable={showGuildBanner}/>
       <MovingFlames />
     </div>
+    </ThemeProvider>
   );
 }
 
@@ -59,7 +84,7 @@ const GuildBanner = ({enable}) => {
     <Fragment>
       <div className={!enable ? styles.hide : classNames(styles.guildBannerContainer, transitions.fadeIn)}>
         <Image src={calamityLogo} alt="Guild Logo" priority layout="intrinsic"/>
-        <p className={classNames(styles.comingSoon, transitions.fadeInLong)}>Coming January 2021</p>
+        <p className={classNames(styles.comingSoon, transitions.fadeInLong)}>Coming January 2022</p>
       </div>
     </Fragment>
   )
