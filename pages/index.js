@@ -53,28 +53,30 @@ export default function Home() {
 
   return (
     <ThemeProvider theme={theme}>
-    <div className={styles.container}>
-      <Head>
-        <title>{title}</title>
-        <meta name="description" content="Guild website for the community made by the players" />
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap" rel="stylesheet" />
-      </Head>
+      <div className={styles.container}>
+        <div className={styles.constraintContainer}>
+          <Head>
+            <title>{title}</title>
+            <meta name="description" content="Guild website for the community made by the players" />
+            <link rel="icon" href="/favicon.ico" />
+            <link rel="preconnect" href="https://fonts.googleapis.com" />
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+            <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap" rel="stylesheet" />
+          </Head>
 
-      <div className={styles.navigationContent}>
-        <ColorButton size="large" href={"https://discord.gg/xz5pqqAadY"} color="primary">
-          Discord
-        </ColorButton>
+          <div className={styles.navigationContent}>
+            <ColorButton size="large" href={"https://discord.gg/xz5pqqAadY"} color="primary">
+              Discord
+            </ColorButton>
+          </div>
+
+          <Introduction enable={showIntroduction} endEvent={() => {
+            displayGuildBanner(true);
+          }}/>
+          <GuildBanner enable={showGuildBanner}/>
+          <MovingFlames />
+        </div>
       </div>
-
-      <Introduction enable={showIntroduction} endEvent={() => {
-        displayGuildBanner(true);
-      }}/>
-      <GuildBanner enable={showGuildBanner}/>
-      <MovingFlames />
-    </div>
     </ThemeProvider>
   );
 }

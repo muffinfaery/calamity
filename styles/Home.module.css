@@ -12,7 +12,7 @@
 .guildBannerContainer{
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-end;
+  justify-content: center;
   width:100%;
 }
 
@@ -23,7 +23,8 @@
 .constraintContainer{
   display: inherit;  
   max-width: 1200px;
-
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .container {
@@ -54,28 +55,20 @@
 }
 
 @media only screen and (max-width: 600px) {
-  .guildBannerContainer{
-    justify-content: center;
-  }
-
   .navigationContent {
     margin-right: 10px;
   }
 
   .comingSoon {
     font-size: 24px;
-    bottom: 30px;
     margin-right: auto;
-    margin-left: auto;
+    margin-left: auto;    
+    bottom: 75px;
   }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
-  .guildBannerContainer{
-    justify-content: center;
-  }
-
   .movingFire {
     bottom: -120px;
   }
@@ -87,9 +80,9 @@
 
   .comingSoon{
     font-size: 30px;
-    bottom: 80px;
     margin-right: auto;
     margin-left: auto;
+    bottom: 75px;
   }
 }
 
@@ -100,8 +93,17 @@
 
   .comingSoon{
     font-size: 40px;
-    bottom: 60px;
-    margin-right: 80px;
+  }
+}
+
+
+@media only screen and (min-width: 1920px) {
+  .navigationContent {
+    margin-right: 10px;
+  }
+
+  .comingSoon{
+    font-size: 40px;
   }
 }
 
