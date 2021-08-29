@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import classNames from 'classnames';
@@ -11,22 +11,29 @@ import {StorageDataAccessor} from '../Utilities/StorageDataAccessor'
 export default function Home() {
   let title = "< C A L A M I T Y >"
   const [showIntroduction, displayIntroduction] = useState(false)
+  const [showGuildBanner, displayGuildBanner] = useState(false)
 
   useEffect(() => {
-    try{
-      const CACHENAME = "hasIntroductionShown"
-      let cachedUserVisit = StorageDataAccessor.sessionStorage.getObj(CACHENAME);
-      if(cachedUserVisit){
-        return;
-      }
+    function introPhase() {
+      try{
+        const CACHENAME = "hasIntroductionShown"
+        let cachedUserVisit = StorageDataAccessor.sessionStorage.getObj(CACHENAME);
+        if(cachedUserVisit){
+          displayGuildBanner(true)
+          return;
+        }
 
-      StorageDataAccessor.sessionStorage.setObj(CACHENAME, true, 20)
-      displayIntroduction(true)
+        StorageDataAccessor.sessionStorage.setObj(CACHENAME, true, 20)
+        displayIntroduction(true)
+      }
+      catch(err){
+          console.error(err)
+      }
     }
-    catch(err){
-        console.error(err)
-    }
+
+    introPhase()
   },[])
+
   return (
     <div className={styles.container}>
       <Head>
@@ -38,25 +45,39 @@ export default function Home() {
         <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap" rel="stylesheet" />
       </Head>
 
-      <Introduction showIntroduction={showIntroduction}/>
-      {/* <Image className={styles.guildLogo} src={calamityLogo} alt="Guild Logo" /> */}
+      <Introduction enable={showIntroduction} endEvent={() => {
+        displayGuildBanner(true);
+      }}/>
+      <GuildBanner enable={showGuildBanner}/>
       <MovingFlames />
-      {/* <Image src={elmo} alt="Elmo" /> */}
     </div>
   );
 }
 
-const Introduction = ({showIntroduction}) => {
-  if(!showIntroduction){
+const GuildBanner = ({enable}) => {
+  return (
+    <Fragment>
+      <div className={!enable ? styles.hide : classNames(styles.guildBannerContainer, transitions.fadeIn)}>
+        <Image src={calamityLogo} alt="Guild Logo" priority layout="intrinsic"/>
+        <p className={classNames(styles.comingSoon, transitions.fadeInLong)}>Coming January 2021</p>
+      </div>
+    </Fragment>
+  )
+}
+
+const Introduction = ({enable, endEvent}) => {
+  if(!enable){
     return null
   }
 
   return (
-    <blockquote className={classNames(styles.introduction, transitions.fadeInOut)}>
-      <p>He who knows no hardships will know no hardihood. He who faces no calamity will need no courage. Mysterious though it is, the characteristics in human nature which we love best grow in a soil with a strong mixture of troubles.
-        <span>- Harry Emerson Fosdick</span>
-      </p>
-    </blockquote>
+    <div className={classNames(styles.introduction, transitions.fadeInOut)} onAnimationEnd={endEvent}>
+      <blockquote >
+        <p>He who knows no hardships will know no hardihood. He who faces no calamity will need no courage. Mysterious though it is, the characteristics in human nature which we love best grow in a soil with a strong mixture of troubles.
+          <span>- Harry Emerson Fosdick</span>
+        </p>
+      </blockquote>
+    </div>
   )
 }
 

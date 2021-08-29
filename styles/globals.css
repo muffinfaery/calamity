@@ -21,9 +21,7 @@ p{
 }
 
 blockquote {
-  position: relative;
-  margin: 60px auto;
-  width: 75%;
+  position: fixed;
   padding-left: 30px;
   border-left: 2px solid #fff;
 }
