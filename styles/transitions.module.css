@@ -1,0 +1,26 @@
+.fadeInOut  {
+  animation: fadeInOut ease-in 18s;
+  -webkit-animation: fadeInOut ease-in 18s;
+  -moz-animation: fadeInOut ease-in 18s;
+  -o-animation: fadeInOut ease-in 18s;
+  -ms-animation: fadeInOut ease-in 18s;
+}
+
+
+@keyframes fadeInOut {
+  50% { opacity: 1; }
+}
+
+
+  @-moz-keyframes fadeInOut {
+    50% { opacity: 1; }
+  }
+  
+  @-o-keyframes fadeInOut {
+    50% { opacity: 1; }
+  }
+  
+  @-ms-keyframes fadeInOut {
+    50% { opacity: 1; }
+  }
+  
